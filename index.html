@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domeinnaam Waarde Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Domeinnaam Waarde Calculator</h2>
+    
+    <label>Leeftijd (jaren)</label>
+    <input type="number" id="age" placeholder="Bijv. 19">
+    
+    <label>Jaarlijkse Inkomsten (€)</label>
+    <input type="number" id="income" placeholder="Bijv. 760.80">
+    
+    <label>Exact Match Domeinscore</label>
+    <input type="number" id="emd" placeholder="Bijv. 80">
+    
+    <label>Aantal Referring Domains</label>
+    <input type="number" id="refDomains" placeholder="Bijv. 1">
+    
+    <label>Aantal Backlinks</label>
+    <input type="number" id="backlinks" placeholder="Bijv. 1">
+    
+    <label>Backlink Kwaliteit (0-100)</label>
+    <input type="number" id="backlinkQuality" placeholder="Bijv. 20">
+    
+    <label>Zoekopdrachten per maand</label>
+    <input type="number" id="searchVolume" placeholder="Bijv. 100">
+    
+    <label>CPC (€)</label>
+    <input type="number" id="cpc" placeholder="Bijv. 6.34">
+    
+    <label>Keyword Difficulty (0-100)</label>
+    <input type="number" id="keywordDifficulty" placeholder="Bijv. 47">
+    
+    <button onclick="calculateValue()">Bereken Waarde</button>
+    
+    <div class="result" id="result">Waarde: €0</div>
+</div>
+
+<script>
+    function calculateValue() {
+        // Waardes ophalen uit invoervelden
+        let age = parseFloat(document.getElementById("age").value) || 0;
+        let income = parseFloat(document.getElementById("income").value) || 0;
+        let emd = parseFloat(document.getElementById("emd").value) || 0;
+        let refDomains = parseFloat(document.getElementById("refDomains").value) || 0;
+        let backlinks = parseFloat(document.getElementById("backlinks").value) || 0;
+        let backlinkQuality = parseFloat(document.getElementById("backlinkQuality").value) || 0;
+        let searchVolume = parseFloat(document.getElementById("searchVolume").value) || 0;
+        let cpc = parseFloat(document.getElementById("cpc").value) || 0;
+        let keywordDifficulty = parseFloat(document.getElementById("keywordDifficulty").value) || 0;
+        
+        // Formule toepassen
+        let ageScore = age * 75;
+        let incomeScore = income * 1;
+        let emdScore = emd * 2;
+        let backlinkScore = (refDomains * 10) + (backlinks * 1) + (backlinkQuality * 10);
+        let searchValue = searchVolume * cpc * 0.1;
+        let keywordFactor = 1 + (keywordDifficulty / 100);
+        
+        let domainValue = (ageScore + incomeScore + emdScore + backlinkScore + searchValue) * keywordFactor;
+        
+        // Weergeven in de UI
+        document.getElementById("result").innerHTML = "Waarde: €" + domainValue.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
